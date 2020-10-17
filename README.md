@@ -21,7 +21,7 @@ Make sure you have AWS access key and secrete keys setup locally, following this
 ### Download the code locally
 
 ```  
-serverless create --template-url https://github.com/AndreasMerentitis/TfLambdaDemo --path tf-lambda
+serverless create --template-url https://github.com/AndreasMerentitis/LambdaKerasIMG --path tf-lambda
 ```
 
 ### Update S3 bucket to unique name
@@ -29,17 +29,6 @@ In serverless.yml:
 ```  
   environment:
     BUCKET: <your_unique_bucket_name> 
-```
-
-
-### Train the model from scratch
-
-```
-source activate py36
-
-python train_new_model.py 
-
-tar -zcvf model.tar.gz model_ML.h5
 ```
 
 
