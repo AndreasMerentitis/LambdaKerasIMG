@@ -1,0 +1,67 @@
+service: tflambdaIMG
+
+provider:
+  name: aws
+  region: eu-west-1
+  runtime: python3.6
+  stage: dev
+  credentials:
+    accessKeyId: 
+    secretAccessKey: 
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource:
+       Fn::Join:
+         - ""
+         - - "arn:aws:s3:::"
+           - ${self:provider.environment.BUCKET}
+           - "/*"
+
+  environment:
+    BUCKET: serverless-ml-1
+
+
+  infer:
+    handler: trigger_lambda_Sagemaker49.trigger_lambda_Sagemaker49Handler
+    timeout: 30
+    events:
+      - http:
+          path: trigger_lambda_Sagemaker49
+          method: post
+          
+  infer:
+    handler: trigger_lambda_Sagemaker_LTSQSL49.trigger_lambda_Sagemaker_LTSQSL49Handler
+    timeout: 30
+    events:
+      - http:
+          path: trigger_lambda_Sagemaker_LTSQSL49
+          method: post
+
+plugins:
+  - serverless-python-requirements
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    zip: true
+    slim: true
+    noDeploy:
+      - boto3
+      - botocore
+      - docutils
+      - jmespath
+      - pip
+      - python-dateutil
+      - s3transfer
+      - setuptools
+      - six
+      - tensorboard
+
+resources:
+  Resources:
+    SageBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.BUCKET}
