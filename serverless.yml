@@ -21,25 +21,25 @@ provider:
            - "/*"
 
   environment:
-    BUCKET: serverless-ml-1
+    BUCKET: serverless-ml-2
 
-
+functions:
   infer:
-    handler: trigger_lambda_Sagemaker49.trigger_lambda_Sagemaker49Handler
+    handler: infer.inferHandler
     timeout: 30
     events:
       - http:
-          path: trigger_lambda_Sagemaker49
+          path: infer
           method: post
           
-  infer:
-    handler: trigger_lambda_Sagemaker_LTSQSL49.trigger_lambda_Sagemaker_LTSQSL49Handler
+  inferqueue:
+    handler: inferqueue.inferqueueHandler
     timeout: 30
     events:
       - http:
-          path: trigger_lambda_Sagemaker_LTSQSL49
+          path: inferqueue
           method: post
-
+          
 plugins:
   - serverless-python-requirements
 custom:
@@ -58,6 +58,10 @@ custom:
       - setuptools
       - six
       - tensorboard
+
+package:
+  exclude:
+    - "*.gz"
 
 resources:
   Resources:
