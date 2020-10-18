@@ -1,3 +1,8 @@
+try:
+  import unzip_requirements
+except ImportError:
+  pass
+
 from __future__ import print_function
 
 import base64
@@ -40,7 +45,7 @@ logger.setLevel(logging.INFO)
 
 lambda_client = boto3_client('lambda')
 
-def lambda_handler(event, context):
+def inferqueueHandler(event, context):
 
     
     logging.warning('event value is %s', event)

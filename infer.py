@@ -1,3 +1,8 @@
+try:
+  import unzip_requirements
+except ImportError:
+  pass
+
 import base64
 import csv
 import io
@@ -156,7 +161,7 @@ logger.setLevel(logging.INFO)
 ENDPOINT_NAME = os.environ['ENDPOINT_NAME']
 runtime = boto3.client('runtime.sagemaker')
 
-def lambda_handler(event, context):
+def inferHandler(event, context):
 
     logging.warning('endpoint name is %s', ENDPOINT_NAME)
     logging.warning('event value is %s', event)
