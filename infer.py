@@ -118,13 +118,14 @@ def convert_image(data, size):
         data = imgByteArr.getvalue()
     return data
 
-def load_images(urls, apollo_opts):
+def load_images(urls):
     logger = logging.getLogger(__name__)
-    for index, url in enumerate(urls):
-        apollo_url = ';'.join([url, apollo_opts])
+    for url in enumerate(urls):
+        #apollo_url = ';'.join([url, apollo_opts])
+        apollo_url = url
+        logging.warning('apollo_url is %s', apollo_url)
 
         try:
-            logger.info('Image {} downloading {}...'.format(index, apollo_url))
             data = urlopen(apollo_url).read()
             size = 299, 299
             data = convert_image(data, size)
@@ -173,13 +174,22 @@ def inferHandler(event, context):
         payload = event
         logging.warning('payload value is %s', payload)
   
-    image_urls = payload['image_urls'] 
-    apollo_opts = payload['apollo_opts'] 
+    for key, value in payload.items():
+      print(key, value)
+    
+    body = payload['body']
+    logging.warning('body value is %s', body)
+    
+    body_dict = json.loads(body)
+    logging.warning('body_dict value is %s', body_dict)
+    
+    image_urls = body_dict['image_urls'] 
+    apollo_opts = body_dict['apollo_opts'] 
     
     logging.warning('image_urls value is %s', image_urls)
     logging.warning('apollo_opts value is %s', apollo_opts)
     
-    request_images = create_image_classification_request(load_images(image_urls, apollo_opts))
+    request_images = create_image_classification_request(load_images(image_urls))
     payload_protobuf = tf_serializer(request_images)
     
     json_response = runtime.invoke_endpoint(EndpointName=ENDPOINT_NAME,
