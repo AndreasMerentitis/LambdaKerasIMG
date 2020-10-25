@@ -181,14 +181,18 @@ def inferHandler(event, context):
     for key, value in payload.items():
       print(key, value)
     
-    body = payload['body']
-    logging.warning('body value is %s', body)
+    try:
+        body = payload['body']
+        logging.warning('body value is %s', body)
     
-    body_dict = json.loads(body)
-    logging.warning('body_dict value is %s', body_dict)
+        body_dict = json.loads(body)
+        logging.warning('body_dict value is %s', body_dict)
     
-    image_urls = body_dict['image_urls'] 
-    apollo_opts = body_dict['apollo_opts'] 
+        image_urls = body_dict['image_urls'] 
+        apollo_opts = body_dict['apollo_opts'] 
+    except:
+        image_urls = payload['image_urls'] 
+        apollo_opts = payload['apollo_opts'] 
     
     logging.warning('image_urls value is %s', image_urls)
     logging.warning('apollo_opts value is %s', apollo_opts)

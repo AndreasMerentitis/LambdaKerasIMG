@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 try:
   import unzip_requirements
 except ImportError:
@@ -29,7 +27,7 @@ def feed_the_workers(urls, spacing):
 def process_one_url(executor, payload_one_item):
     """ Process a single item """
     invoke_response = executor.submit(lambda_client.invoke,
-                            FunctionName   = "trigger_lambda_Sagemaker49",
+                            FunctionName   = "tflambdaIMG-dev-infer",
                             InvocationType = "RequestResponse",
                             Payload        = json.dumps(payload_one_item)
                         )
@@ -57,8 +55,14 @@ def inferqueueHandler(event, context):
         
     logging.warning('payload value is %s', payload)
     
-    image_urls = payload['image_urls']
-    apollo_opts = payload['apollo_opts'] 
+    body = payload['body']
+    logging.warning('body value is %s', body)
+    
+    body_dict = json.loads(body)
+    logging.warning('body_dict value is %s', body_dict)
+    
+    image_urls = body_dict['image_urls'] 
+    apollo_opts = body_dict['apollo_opts'] 
     
     results = []
     results_url_order = []
@@ -131,6 +135,5 @@ def inferqueueHandler(event, context):
         'headers': { 'Content-Type': 'application/json' },
         'body': json.dumps(results_ordered)
     }
-    
     
     
