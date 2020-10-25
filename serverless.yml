@@ -19,6 +19,27 @@ provider:
          - - "arn:aws:s3:::"
            - ${self:provider.environment.BUCKET}
            - "/*"
+           - arn:aws:dynamodb:eu-west-1:*:*
+           - arn:aws:lambda:eu-west-1:*:* 
+           - arn:aws:iam::014011337545:user/serverless
+           - arn:aws:sagemaker:eu-west-1:014011337545:endpoint/carpartsclassifierv1
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - lambda:InvokeFunction # Added this like mentioned above
+        - lambda:GetLayerVersion
+        - sagemaker:UpdateEndpoint
+        - sagemaker:CreateModel
+        - sagemaker:CreateEndpointConfig
+        - sagemaker:DescribeEndpoint
+        - sagemaker:CreateTrainingJob
+        - sagemaker:InvokeEndpoint
 
   environment:
     BUCKET: serverless-ml-2
@@ -26,6 +47,11 @@ provider:
 functions:
   infer:
     handler: infer.inferHandler
+    environment:
+      ENDPOINT_NAME: CarPartsClassifierV1
+    layers:
+      #- arn:aws:lambda:eu-west-1:282784146513:layer:tf_serving_api_flat:2
+      - arn:aws:lambda:eu-west-1:347034527139:layer:tf_keras_pillow:1
     timeout: 30
     events:
       - http:
@@ -39,7 +65,7 @@ functions:
       - http:
           path: inferqueue
           method: post
-          
+
 plugins:
   - serverless-python-requirements
 custom:

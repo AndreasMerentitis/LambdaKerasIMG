@@ -35,6 +35,7 @@ try:
 except ImportError:
     from urllib.request import urlopen
     from urllib.error import HTTPError
+    import urllib
 
 
 ##################################################################################################################################################
@@ -120,19 +121,22 @@ def convert_image(data, size):
 
 def load_images(urls):
     logger = logging.getLogger(__name__)
-    for url in enumerate(urls):
+    for url in urls:
         #apollo_url = ';'.join([url, apollo_opts])
         apollo_url = url
         logging.warning('apollo_url is %s', apollo_url)
 
         try:
-            data = urlopen(apollo_url).read()
+            #data = urlopen(apollo_url, data=None, timeout=10).read()
+            req = urllib.request.Request(apollo_url)
+            response = urllib.request.urlopen(req)
+            data = response.read()                      
             size = 299, 299
             data = convert_image(data, size)
         except HTTPError as e:
             logger.warn(e.msg + '. Image probably not from Apollo.')
             logger.info('Re-downloading from {}...'.format(url))
-            data = urlopen(url).read()
+            data = urlopen(url, data=None, timeout=10).read()
             size = 299, 299
             data = convert_image(data, size)
         yield data
@@ -195,11 +199,17 @@ def inferHandler(event, context):
     json_response = runtime.invoke_endpoint(EndpointName=ENDPOINT_NAME,
                                        ContentType='application/octet-stream',
                                        Body=payload_protobuf)
-                                       
-
+    
     predictions_proto = json_response['Body'].read()
     predictions_json = json.loads(predictions_proto.decode('utf-8'))
     #predictions_final = predictions_json['result']['classifications'][0]['classes']
     predictions_final = predictions_json['result']['classifications']
     
-    return predictions_final
+    logging.warning('predictions_final value is %s', predictions_final) 
+    
+    return {
+        'statusCode': 200,
+        'headers': { 'Content-Type': 'application/json' },
+        'body': json.dumps(predictions_final)
+    }
+    
