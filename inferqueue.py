@@ -1,9 +1,9 @@
+from __future__ import print_function
+
 try:
   import unzip_requirements
 except ImportError:
   pass
-
-from __future__ import print_function
 
 import base64
 import concurrent.futures
@@ -126,4 +126,11 @@ def inferqueueHandler(event, context):
     logging.warning('results value is %s', results) 
     logging.warning('results_ordered value is %s', results_ordered) 
     
-    return results_ordered
+    return {
+        'statusCode': 200,
+        'headers': { 'Content-Type': 'application/json' },
+        'body': json.dumps(results_ordered)
+    }
+    
+    
+    

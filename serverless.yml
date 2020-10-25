@@ -19,10 +19,6 @@ provider:
          - - "arn:aws:s3:::"
            - ${self:provider.environment.BUCKET}
            - "/*"
-           - arn:aws:dynamodb:eu-west-1:*:*
-           - arn:aws:lambda:eu-west-1:*:* 
-           - arn:aws:iam::014011337545:user/serverless
-           - arn:aws:sagemaker:eu-west-1:014011337545:endpoint/carpartsclassifierv1
     - Effect: Allow
       Action:
         - dynamodb:DescribeTable
@@ -32,7 +28,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-        - lambda:InvokeFunction # Added this like mentioned above
+        - lambda:InvokeFunction 
         - lambda:GetLayerVersion
         - sagemaker:UpdateEndpoint
         - sagemaker:CreateModel
@@ -40,6 +36,11 @@ provider:
         - sagemaker:DescribeEndpoint
         - sagemaker:CreateTrainingJob
         - sagemaker:InvokeEndpoint
+      Resource:
+        - arn:aws:dynamodb:eu-west-1:*:*
+        - arn:aws:lambda:eu-west-1:*:* 
+        - arn:aws:iam::014011337545:user/serverless
+        - arn:aws:sagemaker:eu-west-1:014011337545:endpoint/carpartsclassifierv1
 
   environment:
     BUCKET: serverless-ml-2
