@@ -31,6 +31,12 @@ In serverless.yml:
     BUCKET: <your_unique_bucket_name> 
 ```
 
+### Copy the model artifact in the designed S3 bucket
+
+```  
+aws s3 cp inception_resnetv2_nainet49_v1.tar.gz s3://serverless-ml-1/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+```
+
 
 ### Deploy to the cloud  
 
