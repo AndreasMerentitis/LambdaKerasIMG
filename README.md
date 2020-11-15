@@ -32,9 +32,14 @@ In serverless.yml:
 ```
 
 ### Copy the model artifact to the designed S3 bucket
-
+From local drive:
 ```  
 aws s3 cp inception_resnetv2_nainet49_v1.tar.gz s3://serverless-ml-2/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+```
+
+Or from an S3 bucket:
+```  
+aws s3 cp s3://sagemaker-models-euwest2/inception_resnetv2_nainet49_v1.tar.gz s3://serverless-ml-2/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 ```
 
 
@@ -47,8 +52,6 @@ cd tf-lambda
 npm install
 
 sudo serverless deploy --stage dev
-
-aws s3 cp inception_resnetv2_nainet49_v1.tar.gz s3://serverless-ml-2/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
 curl -vX POST -H 'Content-Type: application/json' -d @urls.json https://oz5xe30lrj.execute-api.eu-west-1.amazonaws.com/dev/infer
 ```
