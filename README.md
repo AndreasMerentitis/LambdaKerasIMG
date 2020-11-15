@@ -34,7 +34,7 @@ In serverless.yml:
 ### Copy the model artifact to the designed S3 bucket
 
 ```  
-aws s3 cp inception_resnetv2_nainet49_v1.tar.gz s3://serverless-ml-1/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+aws s3 cp inception_resnetv2_nainet49_v1.tar.gz s3://serverless-ml-2/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 ```
 
 
