@@ -42,6 +42,10 @@ Or from an S3 bucket:
 aws s3 cp s3://sagemaker-models-euwest2/inception_resnetv2_nainet49_v1.tar.gz s3://serverless-ml-2/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 ```
 
+Finally, copying from an S3 bucket a reduced size version of the model:
+```  
+aws s3 cp s3://sagemaker-models-euwest2/inception_resnetv2_nainet49_v1_slim.tar.gz s3://serverless-ml-2/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+```
 
 ### Deploy to the cloud  
 
