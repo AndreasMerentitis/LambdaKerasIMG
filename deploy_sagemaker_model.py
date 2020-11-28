@@ -25,7 +25,7 @@ MODEL_NAME = 'CarPartsClassifierV{}'.format(MODEL_VERSION)
 
 #role = get_execution_role()
 
-model_path = 's3://sagemaker-models-euwest2/inception_resnetv2_nainet49_v1.tar.gz'
+model_path = 's3://serverless-ml-2/inception_resnetv2_nainet49_v1.tar.gz'
 
 def resolve_sm_role():
     client = boto3.client('iam', region_name='eu-west-2')

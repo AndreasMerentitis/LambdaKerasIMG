@@ -50,6 +50,8 @@ cd tf-lambda
 
 npm install
 
+python deploy_sagemaker_model.py
+
 sudo serverless deploy --stage dev
 
 curl -vX POST -H 'Content-Type: application/json' -d @urls.json https://oz5xe30lrj.execute-api.eu-west-1.amazonaws.com/dev/infer
