@@ -50,7 +50,7 @@ cd tf-lambda
 
 npm install
 
-python deploy_sagemaker_model.py
+python deploy_sagemaker_model_sdk1.py
 
 sudo serverless deploy --stage dev
 
