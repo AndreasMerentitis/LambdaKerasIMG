@@ -63,6 +63,8 @@ curl -vX POST -H 'Content-Type: application/json' -d @urls.json https://oz5xe30l
 ```
 aws s3 rm s3://serverless-ml-2 --recursive
 
+python remove_sagemaker_model_sdk1.py
+
 sudo serverless remove --stage dev 
 ```
 
