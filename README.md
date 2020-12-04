@@ -56,7 +56,7 @@ curl -vX POST -H 'Content-Type: application/json' -d @urls.json https://oz5xe30l
 ```
 
 
-### Compare single threaded vs multithread performance
+### Compare single-threaded vs multi-threaded performance
 ```
 In order to optimize performance a multithreaded inference API was created as well. To compare the two: 
 
