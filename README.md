@@ -43,8 +43,6 @@ aws s3 cp s3://sagemaker-models-euwest2/inception_resnetv2_nainet49_v1.tar.gz s3
 ```
 
 ### Deploy to the cloud  
-
-
 ```
 cd tf-lambda
 
@@ -57,9 +55,18 @@ sudo serverless deploy --stage dev
 curl -vX POST -H 'Content-Type: application/json' -d @urls.json https://oz5xe30lrj.execute-api.eu-west-1.amazonaws.com/dev/infer
 ```
 
+
+### Compare single multithread performance
+```
+In order to optimize performance a multithreaded inference API was created as well. To compare the two: 
+
+time curl -vX POST -H 'Content-Type: application/json' -d @urls.json https://4rj3voj7m8.execute-api.eu-west-1.amazonaws.com/dev/infer
+
+time curl -vX POST -H 'Content-Type: application/json' -d @urls.json https://4rj3voj7m8.execute-api.eu-west-1.amazonaws.com/dev/inferqueue
+```
+
+
 ### Clean up (remove deployment) 
-
-
 ```
 aws s3 rm s3://serverless-ml-2 --recursive
 
