@@ -1,6 +1,7 @@
 # Serverless Machine Learning on AWS Lambda with TensorFlow
 
-Configured to deploy a trained image TensorFlow model to AWS Lambda using the Serverless framework.
+Configured to deploy a trained image TensorFlow model to AWS Lambda using the Serverless framework
+and AWS Sagemaker for deploying the endpoint.
 
 ### Prerequisites
 

@@ -41,6 +41,7 @@ provider:
         - arn:aws:lambda:eu-west-1:*:* 
         - arn:aws:iam::014011337545:user/serverless
         - arn:aws:sagemaker:eu-west-1:014011337545:endpoint/carpartsclassifierv1
+        - arn:aws:sagemaker:eu-west-1:014011337545:endpoint/carpartsclassifierv2
 
   environment:
     BUCKET: serverless-ml-2
