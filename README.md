@@ -81,8 +81,7 @@ sudo serverless remove --stage dev
 * https://medium.com/@mike.p.moritz/running-tensorflow-on-aws-lambda-using-serverless-5acf20e00033
 * https://www.serverless.com/blog/using-tensorflow-serverless-framework-deep-learning-image-recognition
 * https://aws.amazon.com/blogs/machine-learning/how-to-deploy-deep-learning-models-with-aws-lambda-and-tensorflow/
-* https://towardsdatascience.com/quickly-build-and-deploy-an-application-with-streamlit-988ca08c7e83
-* https://github.com/marcellusruben/rock_paper_scissor_web_app
+
 
 
 
