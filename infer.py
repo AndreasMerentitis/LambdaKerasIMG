@@ -12,6 +12,7 @@ import os
 import subprocess
 
 import boto3
+import classification_pb2
 import google.protobuf.json_format as json_format
 from google.protobuf.json_format import MessageToJson
 from google.protobuf.message import DecodeError
@@ -21,8 +22,6 @@ from tensorflow.core.framework import \
 from tensorflow.python.framework import \
     tensor_util  # pylint: disable=no-name-in-module
 from tensorflow.python.saved_model.saved_model import signature_constants
-
-import classification_pb2
 
 #from tensorflow.predictor import tf_serializer as tf_protobuf_serializer
 #from sagemaker.tensorflow.predictor import tf_deserializer as tf_protobuf_deserializer
